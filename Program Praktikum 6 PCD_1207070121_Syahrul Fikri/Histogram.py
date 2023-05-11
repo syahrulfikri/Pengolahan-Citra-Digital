@@ -124,71 +124,72 @@ plt.title("Histogram Blue") #menggunakan library matplotlib untuk memberikan nam
 plt.show() #menggunakan library matplotlib untuk memvisualisasikan hasil dari tampilan yang dipanggil yaitu histogram gambar untuk nilai red
 
 #Menampilkan Histogram Kumulatif
+#Histogram kumulatif ini merupakan hasil gabungan beberap blok histogram yang saling tumpang tindi
 hgk = np.zeros((256)) #menginisialisasi variabel pada gambar dengan inisialisasi "hgk" untuk hasil histogram kumulatif dengan format semua elemen gambar diinisialisasi ke 0 karena penggunaan np.zeros selanjutnya untuk panjang resolusinya sampai dengan 256
 c = np.zeros((256)) #menginisialisasi variabel pada gambar dengan inisialisasi "c" untuk nilai kumulatif dengan format semua elemen gambar diinisialisasi ke 0 karena penggunaan np.zeros selanjutnya untuk panjang resolusinya sampai dengan 256
 
-for x in range(0, 256):
-    hgk[x] = 0
-    c[x] = 0
+for x in range(0, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga array 256
+    hgk[x] = 0 #mengisi variabel hgk dalam histogram kumulatif pada elemen x dengan nilainya sama dengan 0
+    c[x] = 0 #mengisi variabel c untuk nilai kumulatif pada elemen x dengan nilainya sama dengan 0
 
-for y in range(0, img_height):
-    for x in range(0, img_width):
-        gray = img_grayscale[y][x][0]
-        hgk[gray] += 1
+for y in range(0, img_height): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen y dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga nilai tinggi pada file gambar
+    for x in range(0, img_width): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga nilai lebar pada file gambar
+        gray = img_grayscale[y][x][0] #inisialisasi variabel warna gray untuk setiap elemen y untuk tinggi dan elemen x untuk lebar gambar dengan array pada 0
+        hgk[gray] += 1 #mengisi variabel hgk untuk elemen gray dalam histogram dengan nilai lebih dari sama dengan 1
                 
-c[0] = hgk[0]
-for x in range(1, 256):
-     c[x] = c[x-1] + hgk[x]
+c[0] = hgk[0] #menginsialisasi nilai c pada array 0 sama dengan histogram kumulatif pada array 0
+for x in range(1, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 1 hingga array 256
+     c[x] = c[x-1] + hgk[x] #untuk mendapatkan hasil nilai kumulatif pada elemen x dibuat suatu rumus untuk mendapatkannya dengan memanfaatkan variabel kumulatif "c" dan nilai histogram kumulatif "hgk"
 
-hmaxk = c[255]
+hmaxk = c[255] #menginisialisasi nilai maksimum histogram kumulatif sama dengan kumulatif dengan array sampai dengan 255
+for x in range(0, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga array 256
+    c[x] = 190 * c[x] / hmaxk #untuk mendapatkan hasil nilai kumulatif lainnya pada elemen x dibuat suatu rumus untuk mendapatkannya dengan memanfaatkan variable kumulatif "c" dan nilai histogram kumulatif maksimum "hmaxk"
 
-for x in range(0, 256):
-    c[x] = 190 * c[x] / hmaxk
-
-plt.hist(c, bins, color="black", alpha=0.5)
-plt.title("Histogram Grayscale Kumulatif")
-plt.show()
+plt.hist(c, bins, color="black", alpha=0.5) #menggunakan library matplotlib dengan menggunakan fungsi hist untuk menampilkan histogram berupa tampilan frekuensi dari data-data numerik yang bersifat kontinu dengan melakukan beberapa modifikasi yaitu menggunakan isi pada variabel c, panjang nilai dengan variabel bins, warna block histogram yaitu black, dan tingkat kontrass blok diagram sebesar 0.5
+plt.title("Histogram Grayscale Kumulatif") #menggunakan library matplotlib untuk memberikan nama pada hasil tampilan yang dipanggil yaitu Histogram Grayscale Kumulatif
+plt.show() #menggunakan library matplotlib untuk memvisualisasikan hasil dari tampilan yang dipanggil yaitu histogram gram untuk nilai histogram kumulatif grayscale
 
 #Menampilkan Histogram Hequalisasi
-hgh = np.zeros((256))
-h = np.zeros((256))
-c = np.zeros((256))
+#Histogram Hequalisasi ini merupakan suatu proses perataan histogram, dimana distribusi nilai derajat keabuan pada suatu citra dibuat rata dengan mengubah derajat keabuan suatu piksel dengan derajat keabuan yang baru dengan suatu fungsi transformasi
+hgh = np.zeros((256)) #menginisialisasi variabel pada gambar dengan inisialisasi "hgh" untuk hasil histogram hequalisasi dengan format semua elemen gambar diinisialisasi ke 0 karena penggunaan np.zeros selanjutnya untuk panjang resolusinya sampai dengan 256
+h = np.zeros((256)) #menginisialisasi variabel pada gambar dengan inisialisasi "h" untuk nilai hequalisasi dengan format semua elemen gambar diinisialisasi ke 0 karena penggunaan np.zeros selanjutnya untuk panjang resolusinya sampai dengan 256
+c = np.zeros((256)) #menginisialisasi variabel pada gambar dengan inisialisasi "c" untuk nilai kumulatif dengan format semua elemen gambar diinisialisasi ke 0 karena penggunaan np.zeros selanjutnya untuk panjang resolusinya sampai dengan 256
 
-for x in range(0, 256):
-    hgh[x] = 0
-    h[x] = 0
-    c[x] = 0
+for x in range(0, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga array 256
+    hgh[x] = 0 #mengisi variabel hgh dalam histogram hequalisasi pada elemen x dengan nilainya sama dengan 0
+    h[x] = 0 #mengisi variabel h untuk nilai hequalisasi pada elemen x dengan nilainya sama dengan 0
+    c[x] = 0 #mengisi variabel c untuk nilai kumulatif pada elemen x dengan nilainya sama dengan 0
 
-for y in range(0, img_height):
-    for x in range(0, img_width):
-        gray = img_grayscale[y][x][0]
-        hgh[gray] += 1
+for y in range(0, img_height): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen y dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga nilai tinggi pada file gambar
+    for x in range(0, img_width): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga nilai lebar pada file gambar
+        gray = img_grayscale[y][x][0] #inisialisasi variabel warna gray untuk setiap elemen y untuk tinggi dan elemen x untuk lebar gambar dengan array pada 0
+        hgh[gray] += 1 #mengisi variabel hgh untuk elemen gray dalam histogram dengan nilai lebih dari sama dengan 1
                 
-h[0] = hgh[0]
-for x in range(1, 256):
-     h[x] = h[x-1] + hgh[x]
+h[0] = hgh[0] #menginisialisasi nilai hequalisasi pada array 0 sama dengan histogram hequalisasi pada array 0
+for x in range(1, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 1 hingga array 256
+     h[x] = h[x-1] + hgh[x] #untuk mendapatkan nilai hequalisasi pada elemen x dibuat suatu rumus untuk mendapatkannya menggunakan variabel hequalisasi "h" dan nilai histogram hequalisasi
 
-for x in range(0, 256):
-     h[x] = h[x] / img_height / img_width
+for x in range(0, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga array 256
+     h[x] = h[x] / img_height / img_width #untuk mendapatkan nilai hequalisasi lainnya pada elemen x dibuat suatu rumus untuk mendapatkannya dengan menggunakan variabel hequalisasi "h", panjang nilai tinggi, dan panjang nilai lebar
 
-for x in range(0, 256):
-    hgh[x] = 0
+for x in range(0, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga array 256
+    hgh[x] = 0 #mengisi variabel hgh dalam histogram hequalisasi pada elemen x dengan nilainya sama dengan 0
     
-for y in range(0, img_height):
-    for x in range(0, img_width):
-        gray = img_grayscale[y][x][0]
-        gray = h[gray] * 255
-        hgh[int(gray)] += 1
+for y in range(0, img_height): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen y dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga nilai tinggi pada file gambar
+    for x in range(0, img_width): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga nilai lebar pada file gambar
+        gray = img_grayscale[y][x][0] #inisialisasi variabel warna gray untuk setiap elemen y untuk tinggi dan elemen x untuk lebar gambar dengan array pada 0
+        gray = h[gray] * 255 #menghitung nilai gray dengan menggunakan variabel hequalisasi "h" yang dikalikan dengan 255
+        hgh[int(gray)] += 1 #mengisi variabel hgh untuk elemen gray dengan tipe data integer dalam histogram dengan nilai lebih dari sama dengan 1
 
-c[0] = hgh[0]
-for x in range(1, 256):
-     c[x] = c[x-1] + hgh[x]
+c[0] = hgh[0] #menginisialisasi nilai kumulatif pada array 0 sama dengan histogram hequalisasi pada array 0
+for x in range(1, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 1 hingga array 256
+     c[x] = c[x-1] + hgh[x] #untuk mendapatkan hasil nilai kumulatif pada elemen x dibuat suatu rumus untuk mendapatkannya dengan memanfaatkan variabel kumulatif "c" dan nilai histogram kumulatif "hgk"
 
-hmaxk = c[255]
+hmaxk = c[255] #menginisialisasi nilai maksimum histogram kumulatif sama dengan kumulatif dengan array sampai dengan 255
 
-for x in range(0, 256):
-    c[x] = 190 * c[x] / hmaxk
+for x in range(0, 256): #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga array 256
+    c[x] = 190 * c[x] / hmaxk #penggunaan fungsi for untuk melakukan perulangan variabel untuk elemen x dengan argumen range yang berisikan nilai array yang akan digunakan oleh fungsi for yang berisikan array dimulai dari 0 hingga array 256
 
-plt.hist(c, bins, color="black", alpha=0.5)
-plt.title("Histogram Grayscale Hequalisasi")
-plt.show()
+plt.hist(c, bins, color="black", alpha=0.5) #menggunakan library matplotlib dengan menggunakan fungsi hist untuk menampilkan histogram berupa tampilan frekuensi dari data-data numerik yang bersifat kontinu dengan melakukan beberapa modifikasi yaitu menggunakan isi pada variabel c, panjang nilai dengan variabel bins, warna block histogram yaitu black, dan tingkat kontrass blok diagram sebesar 0.5
+plt.title("Histogram Grayscale Hequalisasi") #menggunakan library matplotlib untuk memberikan nama pada hasil tampilan yang dipanggil yaitu Histogram Grayscale Hequalisasi
+plt.show() #menggunakan library matplotlib untuk memvisualisasikan hasil dari tampilan yang dipanggil yaitu histogram gram untuk nilai histogram hequalisasi grayscale
